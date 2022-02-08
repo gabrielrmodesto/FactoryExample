@@ -1,17 +1,11 @@
-// interfaces
-
 interface PaymentMethod {
   tax: number;
   createPayment(orderId: string): boolean;
   refoundPayment(orderId: string): boolean;
 }
-// metodo abstrato
-
 abstract class PaymentMethodFactory {
   abstract create(): PaymentMethod;
 }
-
-// concretos
 
 class PaypalMethod implements PaymentMethod {
   tax: number = 0.05;
@@ -26,8 +20,6 @@ class PaypalMethod implements PaymentMethod {
     return true;
   }
 }
-
-//factory do paypal
 
 class PaypalMethodFactory extends PaymentMethodFactory {
   create(): PaymentMethod {
@@ -58,12 +50,10 @@ class PagseguroMethodFactory extends PaymentMethodFactory {
 function clientCode() {
   let paymentMethod: PaymentMethod;
 
-  //pagamento via paypal
   const paypalMethodFactory = new PaypalMethodFactory();
   paymentMethod = paypalMethodFactory.create();
   paymentMethod.createPayment("Order01");
 
-  //pagamento via pagseguro
   const pagseguroMethodFactory = new PagseguroMethodFactory();
   paymentMethod = pagseguroMethodFactory.create();
   paymentMethod.createPayment("Order02");
